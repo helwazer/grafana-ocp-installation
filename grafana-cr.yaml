@@ -1,0 +1,19 @@
+# Grafana Custom Resource (CR) to deploy Grafana instance
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: example-grafana
+  namespace: monitoring
+spec:
+  config:
+    auth:
+      disable_login_form: "false"
+      disable_signout_menu: "false"
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+    enabled: true
+    hosts:
+      - grafana.example.com
+    path: /
+  version: 10.4.3
