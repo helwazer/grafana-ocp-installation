@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-operator
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana-operator
+  template:
+    metadata:
+      labels:
+        app: grafana-operator
+    spec:
+      containers:
+        - name: grafana-operator
+          image: quay.io/integreatly/grafana-operator:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: OPERATOR_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
