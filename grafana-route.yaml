@@ -1,0 +1,15 @@
+# Expose Grafana service via OpenShift route
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: grafana-service
+  namespace: monitoring
+spec:
+  host: grafana-service-monitoring.apps.cluster-55qn4.dynamic.redhatworkshops.io
+  to:
+    kind: Service
+    name: example-grafana-service
+  port:
+    targetPort: 3000
+  tls:
+    termination: edge
